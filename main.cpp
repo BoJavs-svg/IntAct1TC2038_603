@@ -5,6 +5,8 @@
 
 using namespace std;
 string readFile(string filename){
+    //Complexity: O(n)
+    //Read the file of filename and return it as a concatenated string
     fstream fileStream(filename);
     string text="";
     if (fileStream.is_open()){
@@ -16,6 +18,9 @@ string readFile(string filename){
     return text;
 }
 vector<int> getLPS(const string& text){
+    //Complexity: O(m)
+    //Calculate the Longest Prefix Suffix array for a given string using 
+    //the KMP (Knuth-Morris-Pratt) algorithm.
     int len = 0;  // Length of the current longest prefix suffix
     vector<int> lps(text.size(), 0);
 
@@ -38,6 +43,9 @@ vector<int> getLPS(const string& text){
     return lps;
 }
 int findString(string text, string find){
+    // Complexity: O(m + n)
+    //Searches for a pattern (mcode) within a given text (transmission) and 
+    // returns the starting index of the first occurrence of the pattern in the text using the KMP algorithm.
     vector<int> lps = getLPS(find);
     int i = 0;
     int j = 0;
@@ -64,6 +72,7 @@ int findString(string text, string find){
 }
 
 string transString(const string& text1){
+    //Complexity: O(n)
 
     string result = "#";
     
@@ -80,7 +89,9 @@ string transString(const string& text1){
 }
 
 string Manacher(const string& text1){
-    
+    //Complexity: O(n)
+    // Finds the longest palindromic substring within a given 
+    // string using Manacher's algorithm.
     string transformed= transString(text1);
     int n = text1.size();
     vector<int> pal(n, 0);
@@ -116,7 +127,11 @@ string Manacher(const string& text1){
     return text1.substr(start, maxLen);
 }
 
-pair<int, int> findLongestCommonSubstring(const string& text1, const string& text2) {
+pair<int, int> findLCS(const string& text1, const string& text2) {
+    //Complexity: O(m * n)
+    // Finds the longest common substring between two input strings
+    //using the dp approach
+    
     int m = text1.size();//length of text1
     int n = text2.size();//length of text2
 
@@ -177,9 +192,9 @@ int main(){
     cout << pal << " transmission2"  << endl;
 
     
-    c = findLongestCommonSubstring(transmission1, transmission2);
+    c = findLCS(transmission1, transmission2);
     cout<<c.first<<" "<<c.second<<endl;
-    c = findLongestCommonSubstring(transmission2,transmission1);
+    c = findLCS(transmission2,transmission1);
     cout<<c.first<<" "<<c.second<<endl;
     
     return 0;
